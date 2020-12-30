@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<div>
+  <nav>
+    <h1 class="nav_item">Pencil App</h1>
+    <div *ngIf="authService.isLoggedIn()" class="nav_item profile">
+      <p class="profile_item">{{ authService.userdata.userData.name }}</p>
+      <img class="profile_item" [src]="authService.userdata.userData.imgUrl" />
+      <div class="logout" (click)="logOut()">Logout</div>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

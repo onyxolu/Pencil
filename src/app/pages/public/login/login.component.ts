@@ -9,12 +9,20 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public allowedAccess: boolean;
+  private isLoading: boolean = false;
 
   constructor(router: Router, private authService: AuthService) {
     this.allowedAccess = this.authService.isRouteAuthenticated();
   }
 
   ngOnInit(): void {}
+
+  tryGoogleLogin() {
+    this.isLoading = true;
+    this.authService.doGoogleLogin().then((res) => {
+      this.isLoading = false;
+    });
+  }
 
   allowRouteAccess(): void {
     this.authService.setIsAuthenticated(true);

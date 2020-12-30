@@ -1,21 +1,24 @@
-// textarea {
-//   border: 1px solid #888;
-//   outline: none;
-//   resize: none;
-//   overflow: auto;
-//   // white-space: nowrap;
-//   // white-space: pre;
-//   // overflow-wrap: normal;
-//   // overflow-x: scroll;
-// }
-
 #container {
   width: 960px;
   margin: 30px auto;
+  margin-top: 100px;
+  .editable {
+    height: 300px;
+    width: 80%;
+    margin: 2rem auto;
+    text-align: left;
+    border: 1px solid blue;
+    padding: 1rem;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #95b2b8;
+  }
 }
 
-body {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 22px;
-  line-height: 30px;
+.save_status {
+  margin-left: 10em;
+  font-size: 21px;
 }

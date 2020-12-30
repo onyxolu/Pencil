@@ -1,0 +1,36 @@
+nav {
+  h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: 1em;
+    color: #03045e;
+  }
+  img {
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    vertical-align: middle;
+    padding: 0 10px;
+  }
+  .nav_item {
+    display: inline-block;
+  }
+
+  .profile {
+    float: right;
+    .profile_item {
+      display: inline-block;
+    }
+    p {
+      font-size: 1.3em;
+    }
+  }
+  .logout {
+    cursor: pointer;
+    color: blue;
+  }
+}
