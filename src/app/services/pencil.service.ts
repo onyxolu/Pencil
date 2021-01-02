@@ -32,6 +32,10 @@ export class PencilService {
     });
   }
 
+  nativeGlobal() {
+    return window;
+  }
+
   createPenData(postdata: {}) {
     return new Promise<any>((restore, reject) => {
       this.afs

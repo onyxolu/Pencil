@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  SimpleChanges,
+} from '@angular/core';
 import { tap, switchMap, debounceTime } from 'rxjs/operators';
 import MediumEditor from 'medium-editor';
 import { AuthService } from 'src/app/services/auth.service';
@@ -22,6 +28,8 @@ export class PencilComponent implements OnInit {
   modelChanged: Subject<string> = new Subject<string>();
   @ViewChild('container') container: ElementRef;
 
+  mathJaxObject;
+
   constructor(
     private pencilService: PencilService,
     private authService: AuthService
@@ -37,17 +45,20 @@ export class PencilComponent implements OnInit {
 
     this.modelChanged
       .pipe(
-        debounceTime(700),
+        debounceTime(2000),
         tap(() => (this.isLoading = true)),
         switchMap((value) =>
           this.pencilService.updatePenData(this.penDocId, value).then((res) => {
             this.isLoading = false;
+            this.renderMath();
           })
         )
       )
       .subscribe((model) => {
         this.model = model;
       });
+    this.loadMathConfig();
+    this.renderMath();
   }
 
   ngOnDestroy() {
@@ -98,5 +109,34 @@ export class PencilComponent implements OnInit {
       lastModified: new Date(),
     };
     this.pencilService.createPenData(penData).then((res) => {});
+  }
+
+  renderMath() {
+    this.mathJaxObject = this.pencilService.nativeGlobal()['MathJax'];
+    //setInterval(()=>{},1)
+    let angObj = this;
+    setTimeout(() => {
+      console.log('1234');
+      angObj.mathJaxObject.Hub.Queue(
+        ['Typeset', angObj.mathJaxObject.Hub],
+        'container'
+      );
+    }, 1000);
+  }
+
+  loadMathConfig() {
+    console.log('load config');
+
+    this.mathJaxObject = this.pencilService.nativeGlobal()['MathJax'];
+    this.mathJaxObject.Hub.Config({
+      showMathMenu: false,
+      tex2jax: {
+        inlineMath: [['$', '$']],
+      },
+      menuSettings: { zoom: 'Double-Click', zscale: '150%' },
+      CommonHTML: { linebreaks: { automatic: true } },
+      'HTML-CSS': { linebreaks: { automatic: true } },
+      SVG: { linebreaks: { automatic: true } },
+    });
   }
 }
