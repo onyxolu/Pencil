@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { tap, switchMap, debounceTime } from 'rxjs/operators';
 import MediumEditor from 'medium-editor';
 import { AuthService } from 'src/app/services/auth.service';
@@ -72,8 +66,6 @@ export class PencilComponent implements OnInit {
     editor.subscribe('editableInput', (event, editable) => {
       const change = document.getElementsByClassName('medium-editor-element')[0]
         .innerHTML;
-      let text = change.replace(/\$.*?\$/g, 'meow');
-      console.log(text);
       this.modelChanged.next(change);
     });
   }
@@ -113,10 +105,8 @@ export class PencilComponent implements OnInit {
 
   renderMath() {
     this.mathJaxObject = this.pencilService.nativeGlobal()['MathJax'];
-    //setInterval(()=>{},1)
     let angObj = this;
     setTimeout(() => {
-      console.log('1234');
       angObj.mathJaxObject.Hub.Queue(
         ['Typeset', angObj.mathJaxObject.Hub],
         'container'
@@ -125,8 +115,6 @@ export class PencilComponent implements OnInit {
   }
 
   loadMathConfig() {
-    console.log('load config');
-
     this.mathJaxObject = this.pencilService.nativeGlobal()['MathJax'];
     this.mathJaxObject.Hub.Config({
       showMathMenu: false,

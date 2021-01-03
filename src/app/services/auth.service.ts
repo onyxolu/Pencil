@@ -9,7 +9,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable()
 export class AuthService {
   private isAuthenticated: boolean;
-  // public books: FirebaseListObservable<any>;
   private tokenExpirationTimer: any;
   user = new BehaviorSubject<User>(null);
   userdata: User = null;
@@ -18,7 +17,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     public afAuth: AngularFireAuth,
-    private router: Router // private toastr: ToastrService
+    private router: Router
   ) {}
 
   public isRouteAuthenticated(): boolean {
@@ -102,16 +101,11 @@ export class AuthService {
       }
       this.tokenExpirationTimer = null;
       this.isAuthenticated = false;
-      // this.router.navigate(['/auth']);
     });
   }
 
   logoutUser() {
     this.logout();
     this.router.navigate(['/login']);
-  }
-
-  public savePencil(): void {
-    // return this.db.list('/books');
   }
 }

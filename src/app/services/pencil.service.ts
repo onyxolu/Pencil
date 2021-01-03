@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -41,9 +39,7 @@ export class PencilService {
       this.afs
         .collection('pen')
         .add(postdata)
-        .then((r) => {
-          console.log(r);
-        })
+        .then((r) => {})
         .catch((e) => console.log(e));
     });
   }
